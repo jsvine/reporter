@@ -1,0 +1,21 @@
+---
+layout: base
+---
+<h1 class="notebook-title">{{ page.title }}</h1>
+<div>
+    <span class="notebook-date">{{ page.date | date: "%d %b %Y" }}</span>
+    <span class="notebook-last-updated">
+        — Last updated: {{ page.mtime | date: "%d %b %Y, %I:%M%p" }}
+    </span>
+</div>
+<hr>
+<div id="notebook">
+    {{ content }}
+</div>
+<hr>
+<div class="code-controls">
+	<div class="code-toggle btn btn-large btn-block"><span class="without-code">Show Code</span><span class="with-code">Hide Code</span></div>
+</div>
+<script src="assets/js/vendor/d3.v3.min.js"></script> 
+<script src="assets/js/toggle.js"></script> 
+<script src="assets/js/tables.js"></script> 

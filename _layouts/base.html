@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+	 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	 <title>{{ page.title }}</title>
+     <base href="{{ site.baseurl }}">
+	 <!-- syntax highlighting -->
+	 <link rel="stylesheet" href="assets/css/vendor/syntax.css" type="text/css" />
+	 <!-- Custom CSS -->
+	 <link rel="stylesheet" href="assets/css/reporter.css" type="text/css" />
+</head>
+<body>
+	<div class="site">
+		<h4 class="site-title"><a href="{{ site.baseurl }}">{{ site.title }}</a></h4>
+		<div id="main">	
+		{{ content }}
+		</div>
+	</div>
+    <div class="footer">{{ site.footer }}</div>
+</body>
+</html>

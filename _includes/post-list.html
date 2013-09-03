@@ -1,0 +1,15 @@
+<ul class="posts">
+{% if page.category %}
+    {% assign posts = site.categories[page.category] %}
+{% else %}
+    {% assign posts = site.posts %}
+{% endif %}
+{% for post in posts %}
+    <li>
+        <h3 class="post-link">
+            <span class="post-marker">&raquo;</span> <a href=".{{ post.url }}">{{ post.title }}</a>
+            <span class="post-date"> • {{ post.date | date_to_string }}</span>
+        </h3>
+    </li>
+{% endfor %}
+</ul>
