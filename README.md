@@ -26,6 +26,8 @@ Rather than use [YAML front-matter](http://jekyllrb.com/docs/frontmatter/), __Re
 
 Other than that, you run __Reporter__ just like you would any other Jekyll project: `jekyll build` to generate the site, `jekyll serve` to build the site and preview it on `localhost`.
 
+You can change the site title, intro, and footer in [_config.yml](_config.yml).
+
 ## Future Plans
 
 - Support for more input formats:
