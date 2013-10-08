@@ -41,6 +41,9 @@ module Jekyll
             notebook = Reporter::Notebook.new cells
             notebook.to_html(@config)
 		end
+        def join_if_array(obj, sep="")
+            obj.kind_of?(Array) ? obj.join(sep) : obj
+        end
         def convert_cell(c)
             if c["cell_type"] == "code"
                 cells = convert_code_cell(c)
@@ -54,7 +57,7 @@ module Jekyll
             cells
         end
         def convert_code_cell(c)
-            input = Reporter::CodeCell.new(c["input"].join)
+            input = Reporter::CodeCell.new(join_if_array(c["input"]))
             outputs = c["outputs"].map do |o|
                 inner = nil
                 kind = Reporter::HTMLCell
@@ -66,18 +69,20 @@ module Jekyll
                     inner = "<img src='data:image/#{img_fmts[img_fmt]};base64,#{o[img_fmt]}'/>"
 
                 elsif o["html"]
-                    dirty = o["html"].join
+                    dirty = join_if_array(o["html"])
                     inner = Sanitize.clean(dirty, Sanitize::Config::RELAXED)
                 
                 elsif o["svg"]
-                    inner = o["svg"].join
+                    inner = join_if_array(o["svg"])
+
                 elsif o["latex"]
                     inner = "<pre>LaTeX support TK.</pre>"
                     kind = Reporter::PlainTextCell
 
                 elsif [ "stream", "pyout" ].include? o["output_type"] 
                     kind = Reporter::PlainTextCell
-                    inner = "<pre>#{o["text"].join}</pre>"
+                    inner = "<pre>#{join_if_array(o["text"])}</pre>"
+
                 elsif o["output_type"] == "pyerr"
                     kind = Reporter::ErrorCell
                     inner = "<pre>#{o["ename"]}: #{o["evalue"]}</pre>"
@@ -87,13 +92,12 @@ module Jekyll
             [ input, outputs ].flatten
         end
         def convert_markdown_cell(c)
-            text = c["source"].join("\n")
-            Reporter::MarkdownCell.new(text, true)
+            Reporter::MarkdownCell.new(join_if_array(c["source"], "\n"), true)
         end
         def convert_heading_cell(c)
             level = c["level"]
-            text = "<h#{level}>#{c["source"].join}</h#{level}>"
-            Reporter::HTMLCell.new(text, true)
+            html = "<h#{level}>#{join_if_array(c["source"])}</h#{level}>"
+            Reporter::HTMLCell.new(html, true)
         end
     end
 end
