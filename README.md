@@ -12,7 +12,7 @@ To run __Reporter__, clone this repository onto your computer:
 
 And then install the required Ruby gems:
 
-    gem install jekyll sanitize crochet
+    gem install jekyll kramdown sanitize crochet
 
 ... or:
 

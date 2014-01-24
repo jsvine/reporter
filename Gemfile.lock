@@ -45,4 +45,5 @@ PLATFORMS
 DEPENDENCIES
   crochet
   jekyll
+  kramdown
   sanitize
