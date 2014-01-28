@@ -11,7 +11,8 @@ Crochet::Hook.new(File) do
 			json = JSON.parse result
 			meta = json["metadata"]
 			meta["layout"] ||= "notebook"
-			meta["title"] ||= meta["name"]
+			name = (meta["name"].nil? || meta["name"].empty?) ? nil : meta["name"]
+			meta["title"] ||= (name || File.basename(path, ".ipynb"))
 			YAML.dump(meta) + "---\n" + json.to_json
 		else
 			result
