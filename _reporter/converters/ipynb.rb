@@ -3,6 +3,10 @@ require "yaml"
 require "crochet"
 require "json"
 
+sanitize_rules = Sanitize::Config::RELAXED
+sanitize_rules[:protocols]["img"]["src"] << "data"
+SANITIZE_RULES = sanitize_rules
+
 # Intercept .ipynb files, and append their metadata as YAML. 
 Crochet::Hook.new(File) do
 	after! :read, :class do |result, path|
@@ -71,7 +75,7 @@ module Jekyll
 
                 elsif o["html"]
                     dirty = join_if_array(o["html"])
-                    inner = Sanitize.clean(dirty, Sanitize::Config::RELAXED)
+                    inner = Sanitize.clean(dirty, SANITIZE_RULES)
                 
                 elsif o["svg"]
                     inner = join_if_array(o["svg"])
